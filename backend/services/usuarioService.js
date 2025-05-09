@@ -1,8 +1,8 @@
 const usuarioRepository = require('../repositories/usuarioRepository');
 
-const listarTodosUsuarios = async () => {
+const listarUsuarios = async () => {
   try {
-    const usuarios = await usuarioRepository.listarTodosUsuarios();
+    const usuarios = await usuarioRepository.listarUsuarios();
     return usuarios;
   } catch (error) {
     throw new Error('Erro ao listar usuários: ' + error.message);
@@ -10,5 +10,5 @@ const listarTodosUsuarios = async () => {
 };
 
 module.exports = {
-  listarTodosUsuarios,
+  listarUsuarios,
 };
