@@ -1,28 +1,31 @@
 import './LoginCadastro.css';
 
-const Login = () => {
+const Cadastro = () => {
   return (
     <div className="login-wrapper">
       <div className="login-box">
-        <h2>Login</h2>
+        <h2>Cadastre-se</h2>
 
         <form>
           <label htmlFor="email">Email</label>
           <input type="text" id="email" placeholder="Digite seu email" />
 
+          <label htmlFor="cpf">CPF</label>
+          <input type="text" id="cpf" placeholder="Digite seu CPF" />
+
           <label htmlFor="senha">Senha</label>
           <input type="password" id="senha" placeholder="Digite sua senha" />
 
-          <button type="submit">Entrar</button>
+          <label htmlFor="confirmar_senha">Confirmar Senha</label>
+          <input type="password" id="confirmar_senha" placeholder="Digite sua senha novamente" />
+
+          <button type="submit">Cadastrar</button>
         </form>
 
-        <p className="signup-text">
-          Não possui uma conta de morador e deseja criar uma?
-          <a href="#" className="signup-link"> Cadastre-se</a>
-        </p>
+      
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Cadastro;
