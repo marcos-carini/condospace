@@ -1,24 +1,30 @@
 
+import { useState } from "react";
 import "./Layout.css";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaSignOutAlt } from "react-icons/fa";
 
 const Layout = ({ children }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="layout">
       <header className="layout-header">
         <div className="header-content container">
           <div className="logo">CondoSpace</div>
+          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+            <FaBars />
+          </button>
 
-          <nav className="nav-links">
+          <nav className={`nav-links ${menuOpen ? "active" : ""}`}>
             <a href="/home">Início</a>
             <a href="/reservas">Reservas</a>
             <a href="/contato">Contato</a>
           </nav>
-
-          <button className="logout-button">
+          
+          <button className={`logout-button ${menuOpen ? "show-on-mobile" : ""}`}>
             Sair
             <FaSignOutAlt style={{ marginLeft: "8px" }} />
           </button>
+          
         </div>
       </header>
 
