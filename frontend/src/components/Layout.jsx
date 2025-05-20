@@ -2,8 +2,17 @@
 import { useState } from "react";
 import "./Layout.css";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, activePage }) => {
+  if (activePage === "home") {
+    activePage = "home";
+  } else if (activePage === "reservas") {
+    activePage = "reservas";
+  } else if (activePage === "contato") {
+    activePage = "contato";
+  }
+
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="layout">
@@ -15,9 +24,9 @@ const Layout = ({ children }) => {
           </button>
 
           <nav className={`nav-links ${menuOpen ? "active" : ""}`}>
-            <a href="/home">Início</a>
-            <a href="/reservas">Reservas</a>
-            <a href="/contato">Contato</a>
+            <Link to={"/"}  style={{color: activePage === "home" ? "#ffee79" : ""}}>Início</Link>
+            <Link to={"/reserva"} style={{color: activePage === "reservas" ? "#ffee79" : ""}}>Reservas</Link>
+            <Link to={"/contato"} style={{color: activePage === "contato" ? "#ffee79" : ""}}>Contato</Link>
           </nav>
           
           <button className={`logout-button ${menuOpen ? "show-on-mobile" : ""}`}>
