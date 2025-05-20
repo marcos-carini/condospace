@@ -38,6 +38,7 @@ const Layout = ({ children }) => {
             <button>Minhas Reservas</button>
             <button>Histórico</button>
           </div>
+          <p className="user-info" style={{textAlign: "center", marginTop: 20, marginBottom: 0}}>Sua reserva + moderna</p>
         </aside>
 
         <main className="layout-content">

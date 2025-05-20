@@ -44,14 +44,19 @@
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 5rem;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
+
+.nav-links a:hover {
+    transform: scale(1.1);
+  }
 
 .logout-button {
   display: flex;
@@ -84,6 +89,8 @@
     align-items: center;
   }
 
+  
+
   .nav-links.active {
     display: flex;
   }
@@ -105,17 +112,18 @@
   display: flex;
   margin-top: 2rem;
   gap: 2rem;
+  min-height: 500px;
 }
 
 /* SIDEBAR */
 .layout-sidebar {
+  height: 100%;
   background-color: white;
   border-radius: 12px;
   padding: 1.5rem;
   width: 20%;
   min-width: 250px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  flex: 1;
 }
 
 .layout-sidebar h3 {
@@ -157,7 +165,6 @@
   padding: 1.5rem;
   width: 80%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  flex: 2;
   min-width: 250px;
 }
 

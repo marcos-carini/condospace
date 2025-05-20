@@ -1,0 +1,52 @@
+.main-button {
+  text-align: start;
+  position: relative;
+  width: 300px;
+  background-color: #8c52ff;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 3rem;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-top: 3rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.main-button:hover {
+  background-image: linear-gradient(to right, #8c52ff, #a364ff, #ff4d4d);
+
+  transform: scale(1.03);
+}
+
+.rocket-image {
+  position: absolute;
+  right: -5px;
+  top: -10px;
+  height: 70px;
+  transform: rotate(370deg);
+  transition: transform 0.3s ease, top 0.3s ease, right 0.3s ease;
+  animation: float 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(370deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(370deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(370deg);
+  }
+}
+
+.main-button:hover .rocket-image {
+  animation: none; /* desativa a animação flutuante */
+  transform: translateY(-8px) rotate(350deg) scale(1.1);
+  right: -10px;
+  top: -15px;
+}
