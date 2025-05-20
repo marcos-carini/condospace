@@ -72,7 +72,7 @@ const Reserva = () => {
           </div>
 
           <p className="modal-termo">
-            Ao reservar o ping pong você concorda com os termos de uso do condomínio.
+            Ao reservar o/a {espacoSelecionado?.titulo} você concorda com os termos de uso do condomínio.
           </p>
 
           <button 
