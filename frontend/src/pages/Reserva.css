@@ -12,20 +12,22 @@
 
 @media (max-width: 600px) {
   .espaco-card {
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: center; 
     text-align: center;  
   }
 
-  .espaco-card-imagem {
+  .espaco-card-imagem, .reserva-card-imagem {
     margin-right: 0px !important;
     margin-bottom: 10px;
   }
 
-  .btn-reservar {
+  .btn-reservar, .btn-cancelar {
     margin-top: 1rem !important;
     width: 100%;
   }
+
+  
 }
 
 .espaco-card-imagem {
@@ -34,6 +36,18 @@
   background-color: #c8b4ff;
   border-radius: 1rem;
   margin-right: 1rem;
+}
+
+@media (max-width: 840px) {
+  .reserva-card {
+    flex-direction: column !important;
+    align-items: center; 
+    text-align: center;  
+  }
+
+  .reserva-card-titulo {
+    display: block !important;
+  }
 }
 
 
@@ -50,6 +64,51 @@
 }
 
 .espaco-card-conteudo p {
+  color: #7c73ff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+
+/* CARD DE RESERVA */
+
+.reserva-card {
+  background-color: #f3edff;
+  display: flex;
+  flex-direction: row; 
+  border-radius: 2rem;
+  padding: 1rem;
+  min-height: 180px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.reserva-card-imagem {
+  width: 150px;
+  height: 150px;
+  background-color: #c8b4ff;
+  border-radius: 1rem;
+  margin-right: 1rem;
+}
+
+
+.reserva-card-conteudo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.reserva-card-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.reserva-card-texto {
   color: #7c73ff;
   font-weight: 600;
   font-size: 14px;
@@ -74,11 +133,30 @@
   transform: scale(1.02);
 }
 
+
+.btn-cancelar {
+  background-color:rgb(255, 193, 193);
+  color: #9d0b00;
+  padding: 8px;
+  border: none;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+}
+
+.btn-cancelar:hover {
+  background-color:rgb(255, 204, 204);
+  transform: scale(1.02);
+}
+
 /* Responsividade: dois por linha quando a tela for larga */
 .espacos-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   gap: 1rem;
 }
 

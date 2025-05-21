@@ -43,9 +43,9 @@ const Layout = ({ children, activePage }) => {
           <p className="user-info">Bloco 7 · Apto 703</p>
 
           <div className="sidebar-buttons">
-            <button>Minha Conta</button>
-            <button>Minhas Reservas</button>
-            <button>Histórico</button>
+            <Link to={"/minhaconta"} className="btn-sidebar">Minha Conta</Link>
+            <Link to={"/minhasreservas"} className="btn-sidebar">Minhas Reservas</Link>
+            <Link to ={"/historico"} className="btn-sidebar">Histórico</Link>
           </div>
           <p className="user-info" style={{textAlign: "center", marginTop: 20, marginBottom: 0}}>Sua reserva + moderna</p>
         </aside>

@@ -143,7 +143,9 @@
   gap: 1rem;
 }
 
-.sidebar-buttons button {
+.btn-sidebar {
+  text-decoration: none;
+  text-align: center;
   background-color: #e2d3ff;
   color: #6112ff;
   border: none;
@@ -154,7 +156,7 @@
   transition: background-color 0.3s;
 }
 
-.sidebar-buttons button:hover {
+.btn-sidebar:hover {
   background-color: #d4bfff;
 }
 

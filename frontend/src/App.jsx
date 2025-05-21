@@ -5,6 +5,7 @@ import Cadastro from './pages/Cadastro'
 import { Route, Routes } from 'react-router-dom'
 import Reserva from './pages/Reserva'
 import Contato from './pages/Contato'
+import MinhasReservas from './pages/MinhasReservas'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/reserva" element={<Reserva />} />
       <Route path="/contato" element={<Contato />} />
+      <Route path="/minhasreservas" element={<MinhasReservas />} />
     </Routes>
   )
 }

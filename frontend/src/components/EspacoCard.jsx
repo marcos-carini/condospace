@@ -7,8 +7,8 @@ const EspacoCard = ({ titulo, descricao, imagem, onReservar }) => {
       </div>
       <div className="espaco-card-conteudo">
         <div>
-          <h3 style={{ color: "#6112ff", fontWeight: 600 }}>{titulo}</h3>
-          <p style={{ color: "#7c73ff", fontWeight: 600, fontSize: 14 }}>{descricao}</p>
+          <h3>{titulo}</h3>
+          <p>{descricao}</p>
         </div>
         <button className="btn-reservar" onClick={onReservar}>Reservar</button>
       </div>
