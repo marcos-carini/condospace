@@ -7,6 +7,7 @@ import Reserva from './pages/Reserva'
 import Contato from './pages/Contato'
 import MinhasReservas from './pages/MinhasReservas'
 import Historico from './pages/Historico'
+import MinhaConta from './pages/MinhaConta'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Route path="/contato" element={<Contato />} />
       <Route path="/minhasreservas" element={<MinhasReservas />} />
       <Route path="/historico" element={<Historico />} />
+      <Route path="/minhaconta" element={<MinhaConta />} />
     </Routes>
   )
 }

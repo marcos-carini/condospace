@@ -1,0 +1,95 @@
+.minhaconta-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.minhaconta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.apartamento-info {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  gap: 0.25rem;
+}
+
+input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[readonly] {
+  background-color: #f0f0f0;
+  color: #555;
+  cursor: not-allowed;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6a5acd; /* só muda a cor, não a espessura */
+  box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.2);
+}
+
+
+
+
+.senha-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.btn-comum {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #6a5acd;
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 36px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-comum:hover {
+  background-color: #5a4db1;
+
+}
+
+@media (max-width: 600px) {
+  .senha-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .apartamento-info {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+}

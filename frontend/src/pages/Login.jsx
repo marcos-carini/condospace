@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './LoginCadastro.css';
 
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
 
         <p className="signup-text">
           Não possui uma conta de morador e deseja criar uma?
-          <a href="#" className="signup-link"> Cadastre-se</a>
+          <Link to={"/cadastro"} className="signup-link"> Cadastre-se</Link>
         </p>
       </div>
     </div>
