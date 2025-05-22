@@ -22,7 +22,7 @@ const Layout = ({ children, activePage }) => {
     <div className="layout">
       <header className="layout-header">
         <div className="header-content container">
-          <div className="logo">CondoSpace</div>
+          <Link to={"/"} className="logo-text">CondoSpace</Link>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
             <FaBars />
           </button>

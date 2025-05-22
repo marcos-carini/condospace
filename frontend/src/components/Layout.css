@@ -28,10 +28,6 @@
 
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
 
 .menu-toggle {
   display: none;
@@ -52,6 +48,19 @@
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
+}
+
+.logo-text{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.logo-text:hover{
+  color: #f0e7ff;
+  transform: scale(1.1);
 }
 
 .nav-links a:hover {
