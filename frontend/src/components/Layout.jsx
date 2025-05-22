@@ -11,6 +11,10 @@ const Layout = ({ children, activePage }) => {
     activePage = "reservas";
   } else if (activePage === "contato") {
     activePage = "contato";
+  } else if (activePage === "minhasreservas") {
+    activePage = "minhasreservas";
+  } else if (activePage === "historico") {
+    activePage = "historico";
   }
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,9 +47,9 @@ const Layout = ({ children, activePage }) => {
           <p className="user-info">Bloco 7 · Apto 703</p>
 
           <div className="sidebar-buttons">
-            <Link to={"/minhaconta"} className="btn-sidebar">Minha Conta</Link>
-            <Link to={"/minhasreservas"} className="btn-sidebar">Minhas Reservas</Link>
-            <Link to ={"/historico"} className="btn-sidebar">Histórico</Link>
+            <Link to={"/minhaconta"} className="btn-sidebar" style={{backgroundColor: activePage === "minhaconta" ? "#928bff" : "", color: activePage === "minhaconta" ? "#fff" : ""}}>Minha Conta</Link>
+            <Link to={"/minhasreservas"} className="btn-sidebar" style={{backgroundColor: activePage === "minhasreservas" ? "#928bff" : "", color: activePage === "minhasreservas" ? "#fff" : ""}}>Minhas Reservas</Link>
+            <Link to ={"/historico"} className="btn-sidebar" style={{backgroundColor: activePage === "historico" ? "#928bff" : "", color: activePage === "historico" ? "#fff" : ""}}>Histórico</Link>
           </div>
           <p className="user-info" style={{textAlign: "center", marginTop: 20, marginBottom: 0}}>Sua reserva + moderna</p>
         </aside>

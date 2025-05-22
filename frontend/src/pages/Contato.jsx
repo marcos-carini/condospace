@@ -9,8 +9,8 @@ const Contato = () => {
   return (
     <Layout activePage="contato">
       <div className="contato-wrapper">
-        <Divisoria titulo="Contato" />
-        <div style={{display: "flex", flexDirection: "column", gap: 30}}>
+        <Divisoria titulo="Contato"/>
+        <div style={{display: "flex", flexDirection: "column", gap: 30, marginTop: 20}}>
           <div className="contato-card">
             <h1 style={{color: "#666"}}>Suporte CondoSpace</h1>
             <p>Estamos aqui para ajudar! Se você tiver alguma dúvida ou precisar de assistência, não hesite em nos contatar.</p>

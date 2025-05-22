@@ -9,7 +9,7 @@ import ReservaCard from "../components/ReservaCard"
 const MinhasReservas = () => {
   return (
 
-    <Layout>
+    <Layout activePage={"minhasreservas"}>
       <div className="espacos-wrapper">
         <Divisoria  titulo="Minhas Reservas" />
         <ReservaCard

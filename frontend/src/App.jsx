@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import Reserva from './pages/Reserva'
 import Contato from './pages/Contato'
 import MinhasReservas from './pages/MinhasReservas'
+import Historico from './pages/Historico'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/reserva" element={<Reserva />} />
       <Route path="/contato" element={<Contato />} />
       <Route path="/minhasreservas" element={<MinhasReservas />} />
+      <Route path="/historico" element={<Historico />} />
     </Routes>
   )
 }
