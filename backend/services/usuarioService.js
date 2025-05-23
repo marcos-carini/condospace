@@ -1,4 +1,4 @@
-const { cadastrarUsuario } = require('../controllers/usuarioController');
+
 const usuarioRepository = require('../repositories/usuarioRepository');
 
 const listarUsuarios = async () => {

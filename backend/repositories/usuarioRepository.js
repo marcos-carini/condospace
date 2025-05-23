@@ -21,25 +21,30 @@ const buscarPorEmail = (email) => {
 };
 
 const cadastrarUsuario = async (usuario) => {
-  const {
-    nome,
-    email,
-    cpf,
-    senha,
-    telefone,
-    tipo_usuario,
-    status,
-    bloco,
-    apartamento
-  } = usuario;
+  return new Promise((resolve, reject) => {
+    const {
+      nome,
+      email,
+      cpf,
+      senha,
+      telefone,
+      tipo_usuario,
+      status,
+      bloco,
+      apartamento
+    } = usuario;
 
-  const sql = `
-    INSERT INTO usuario 
-    (nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+    const sql = `
+      INSERT INTO usuario 
+      (nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-  await db.query(sql, [nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento]);
+    db.query(sql, [nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
 };
 
 module.exports = {
