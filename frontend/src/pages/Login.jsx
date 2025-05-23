@@ -21,6 +21,7 @@ const Login = () => {
       navigate('/');
     } catch (err) {
       alert('Email ou senha inválidos');
+      setSenha('');
     }
   };
 

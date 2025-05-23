@@ -3,6 +3,9 @@ import { useState } from "react";
 import "./Layout.css";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Layout = ({ children, activePage }) => {
   if (activePage === "home") {
@@ -17,7 +20,14 @@ const Layout = ({ children, activePage }) => {
     activePage = "historico";
   }
 
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    navigate("/login"); 
+  };
+
   return (
     <div className="layout">
       <header className="layout-header">
@@ -33,7 +43,7 @@ const Layout = ({ children, activePage }) => {
             <Link to={"/contato"} style={{color: activePage === "contato" ? "#ffee79" : ""}}>Contato</Link>
           </nav>
           
-          <button className={`logout-button ${menuOpen ? "show-on-mobile" : ""}`}>
+          <button className={`logout-button ${menuOpen ? "show-on-mobile" : ""}`} onClick={handleLogout}>
             Sair
             <FaSignOutAlt style={{ marginLeft: "8px" }} />
           </button>
