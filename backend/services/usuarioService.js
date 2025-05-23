@@ -1,3 +1,4 @@
+const { cadastrarUsuario } = require('../controllers/usuarioController');
 const usuarioRepository = require('../repositories/usuarioRepository');
 
 const listarUsuarios = async () => {
@@ -9,6 +10,26 @@ const listarUsuarios = async () => {
   }
 };
 
+const cadastrarUsuario = async ({ nome, email, cpf, senha, bloco, apartamento }) => {
+  const existente = await usuarioRepository.buscarPorEmail(email);
+  if (existente.length > 0) {
+    throw new Error('Email já cadastrado');
+  }
+
+  await usuarioRepository.cadastrarUsuario({
+    nome,
+    email,
+    cpf,
+    senha,
+    bloco,
+    apartamento,
+    telefone: '',
+    tipo_usuario: 'M',
+    status: 'A'
+  });
+};
+
 module.exports = {
   listarUsuarios,
+  cadastrarUsuario,
 };

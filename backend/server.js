@@ -19,6 +19,7 @@ app.post('/login', authController.login);
 
 // Rotas de Usuários
 app.get('/usuarios', usuarioController.listarUsuarios);
+app.post('/usuarios', usuarioController.cadastrarUsuario);
 
 // Rota de Espacos
 app.get('/espacos', espacoController.listarEspacos);

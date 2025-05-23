@@ -20,7 +20,30 @@ const buscarPorEmail = (email) => {
   });
 };
 
+const cadastrarUsuario = async (usuario) => {
+  const {
+    nome,
+    email,
+    cpf,
+    senha,
+    telefone,
+    tipo_usuario,
+    status,
+    bloco,
+    apartamento
+  } = usuario;
+
+  const sql = `
+    INSERT INTO usuario 
+    (nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  await db.query(sql, [nome, email, cpf, senha, telefone, tipo_usuario, status, bloco, apartamento]);
+};
+
 module.exports = {
   listarUsuarios,
   buscarPorEmail,
+  cadastrarUsuario
 };

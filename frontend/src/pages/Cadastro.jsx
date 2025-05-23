@@ -13,6 +13,20 @@ const Cadastro = () => {
           <label htmlFor="cpf">CPF</label>
           <input type="text" id="cpf" placeholder="Digite seu CPF" />
 
+          <div style={{display: 'flex', gap: "2rem"}}>
+            <label htmlFor="bloco">
+              Bloco
+              <input type="text" id="bloco" placeholder="Digite o Bloco" /> 
+            </label>
+            
+
+            <label htmlFor="apto">
+                Apto
+               <input type="text" id="apto" placeholder="Digite o Apto" />
+            </label>
+           
+          </div>
+
           <label htmlFor="senha">Senha</label>
           <input type="password" id="senha" placeholder="Digite sua senha" />
 
