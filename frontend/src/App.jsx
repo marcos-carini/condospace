@@ -1,4 +1,5 @@
 
+import RequireAuth from './components/RequireAuth.jsx';
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Cadastro from './pages/Cadastro'
@@ -15,12 +16,36 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/reserva" element={<Reserva />} />
-      <Route path="/contato" element={<Contato />} />
-      <Route path="/minhasreservas" element={<MinhasReservas />} />
-      <Route path="/historico" element={<Historico />} />
-      <Route path="/minhaconta" element={<MinhaConta />} />
+      <Route path="/" element={
+        <RequireAuth>
+          <Home />
+        </RequireAuth>
+      } />
+      <Route path="/reserva" element={
+        <RequireAuth>
+          <Reserva />
+        </RequireAuth>
+      } />
+      <Route path="/minhasreservas" element={
+        <RequireAuth>
+          <MinhasReservas />
+        </RequireAuth>
+      } />
+      <Route path="/contato" element={
+        <RequireAuth>
+          <Contato />
+        </RequireAuth>
+      } />
+      <Route path="/historico" element={
+        <RequireAuth>
+          <Historico />
+        </RequireAuth>
+      } />
+      <Route path="/minhaconta" element={
+        <RequireAuth>
+          <MinhaConta />
+        </RequireAuth>
+      } />
     </Routes>
   )
 }
