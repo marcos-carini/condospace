@@ -17,6 +17,10 @@ body {
 }
 
 @layer base {
+  button, [role="button"] {
+    cursor: pointer;
+  }
+  
   h1 {
     @apply text-2xl font-bold mb-3;
   }
@@ -32,7 +36,7 @@ body {
   h4 {
     @apply text-base font-medium mb-1;
   }
-}
+} 
 
 :root {
   --radius: 0.65rem;

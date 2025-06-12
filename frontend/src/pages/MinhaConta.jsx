@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import "./MinhaConta.css"
 import Divisoria from '../components/Divisoria'
 import toast from 'react-hot-toast';
+import {Button} from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
   AlertDialog,
@@ -127,15 +128,15 @@ const removerVisitante = async (idVisitante) => {
                 <input type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)}/>
               </label>
 
-              <button type="button" className="btn-comum" onClick={handleSenhaUpdate}>
+              <Button type="button"  onClick={handleSenhaUpdate}>
                 Confirmar
-              </button>
+              </Button>
 
               </>
               }
-              <button type="button" className="btn-comum" style={{backgroundColor: isChangingPassword ? "#cf142b" : ""}} onClick={() => setIsChangingPassword(!isChangingPassword)}>
+              <Button type="button" variant={isChangingPassword ? "destructive" : "default"} onClick={() => setIsChangingPassword(!isChangingPassword)}>
                 {isChangingPassword ? "Cancelar" : "Mudar Senha"}
-              </button>
+              </Button>
             </div>
 
             <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff", marginTop: 20}}>Moradia</h3>
@@ -167,9 +168,9 @@ const removerVisitante = async (idVisitante) => {
                 Email do Visitante:
                 <input type="email" placeholder="usuario@exemplo.com" value={emailVisitante} onChange={(e) => setEmailVisitante(e.target.value)} />
               </label>
-              <button type="button" className="btn-comum" onClick={handleAdicionarVisitante}>
+              <Button type="button" onClick={handleAdicionarVisitante}>
                 Adicionar
-              </button>
+              </Button>
             </div>
 
             <p style={{marginTop: 20, marginBottom: 5}}>Seus visitantes ativos: </p>

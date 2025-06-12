@@ -37,6 +37,7 @@ label {
 }
 
 input {
+  height: 36px;
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 2px solid #ccc;
@@ -72,8 +73,7 @@ input:focus {
   color: white;
   border-radius: 0.5rem;
   cursor: pointer;
-  height: 44px;
-  font-weight: bold;
+  height: 36px;
   transition: background-color 0.3s;
 }
 
