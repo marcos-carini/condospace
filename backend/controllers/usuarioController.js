@@ -56,10 +56,23 @@ const adicionarVisitante = async (req, res) => {
   }
 };
 
+const removerVisitante = async (req, res) => {
+  const { id } = req.params;
+  const { idMorador } = req.body;
+
+  try {
+    const result = await usuarioService.removerVisitante(id, idMorador);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   listarUsuarios,
   cadastrarUsuario,
   buscarUsuarioPorId,
   atualizarSenha,
   adicionarVisitante,
+  removerVisitante,
 };

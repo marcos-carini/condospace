@@ -12,10 +12,26 @@ const listarUsuarios = () => {
 
 const buscarUsuarioPorId = (id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT id_usuario, email, telefone, bloco, apartamento FROM usuario WHERE id_usuario = ?';
-    db.query(sql, [id], (err, results) => {
+    const sqlUsuario = 'SELECT id_usuario, email, telefone, bloco, apartamento FROM usuario WHERE id_usuario = ?';
+    const sqlVisitantes = `
+      SELECT v.id_visitante, u.email 
+      FROM visitantes v
+      JOIN usuario u ON v.id_visitante = u.id_usuario
+      WHERE v.id_morador = ?
+    `;
+
+    // Executar as duas queries em paralelo
+    db.query(sqlUsuario, [id], (err, usuarioResults) => {
       if (err) return reject(err);
-      resolve(results[0]);
+      const usuario = usuarioResults[0];
+
+      db.query(sqlVisitantes, [id], (err, visitantesResults) => {
+        if (err) return reject(err);
+
+        // Anexa os visitantes ao objeto do usuário
+        usuario.visitantes = visitantesResults;
+        resolve(usuario);
+      });
     });
   });
 };
@@ -97,6 +113,19 @@ const vincularVisitante = (idMorador, idVisitante) => {
   });
 };
 
+const removerVisitante = (idVisitante, idMorador) => {
+  return new Promise((resolve, reject) => {
+    const sql = `
+      DELETE FROM visitantes
+      WHERE id_visitante = ? AND id_morador = ?
+    `;
+    db.query(sql, [idVisitante, idMorador], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   listarUsuarios,
   buscarPorEmail,
@@ -105,5 +134,6 @@ module.exports = {
   buscarTodosDadosPorId,
   atualizarSenha,
   verificarVinculoExistente,
-  vincularVisitante
+  vincularVisitante,
+  removerVisitante,
 };

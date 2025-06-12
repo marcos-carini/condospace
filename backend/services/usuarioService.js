@@ -61,11 +61,26 @@ const adicionarVisitante = async (idMorador, emailVisitante) => {
   return { message: 'Visitante vinculado com sucesso' };
 };
 
+const removerVisitante = async (idVisitante, idMorador) => {
+  if (!idVisitante || !idMorador) {
+    throw new Error("ID do visitante e do morador são obrigatórios.");
+  }
+
+  const resultado = await usuarioRepository.removerVisitante(idVisitante, idMorador);
+
+  if (resultado.affectedRows === 0) {
+    throw new Error("Nenhum visitante encontrado com esse ID para o morador informado.");
+  }
+
+  return { message: "Visitante removido com sucesso." };
+};
+
 module.exports = {
   listarUsuarios,
   cadastrarUsuario,
   buscarUsuarioPorId,
   atualizarSenha,
   adicionarVisitante,
+  removerVisitante,
   
 };

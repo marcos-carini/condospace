@@ -3,7 +3,18 @@ import Layout from '../components/Layout'
 import "./MinhaConta.css"
 import Divisoria from '../components/Divisoria'
 import toast from 'react-hot-toast';
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction
+} from "@/components/ui/alert-dialog"
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -51,17 +62,34 @@ const MinhaConta = () => {
   };
 
   const handleAdicionarVisitante = async () => {
-  const id = localStorage.getItem('id_usuario');
+    const id = localStorage.getItem('id_usuario');
 
+    try {
+      const response = await axios.post(`http://localhost:3001/usuarios/visitantes/${id}`, {
+        email: emailVisitante
+      });
+      const user = await axios.get(`http://localhost:3001/usuarios/${id}`);
+      setUsuario(user.data);
+      toast.success(response.data.message);
+      setEmailVisitante('');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Erro ao adicionar visitante');
+    }
+  };
+
+const removerVisitante = async (idVisitante) => {
+  const idMorador = localStorage.getItem('id_usuario');
   try {
-    const response = await axios.post(`http://localhost:3001/usuarios/${id}/visitantes`, {
-      email: emailVisitante
+    await axios.delete(`http://localhost:3001/usuarios/visitantes/${idVisitante}`, {
+      data: { idMorador }
     });
-
-    toast.success(response.data.message);
-    setEmailVisitante('');
-  } catch (error) {
-    toast.error(error.response?.data?.message || 'Erro ao adicionar visitante');
+    setUsuario((prev) => ({
+      ...prev,
+      visitantes: prev.visitantes.filter(v => v.id_visitante !== idVisitante)
+    }));
+    toast.success("Visitante removido com sucesso!");
+  } catch (err) {
+    toast.error("Erro ao remover visitante:", err);
   }
 };
   
@@ -145,10 +173,33 @@ const MinhaConta = () => {
             </div>
 
             <p style={{marginTop: 20, marginBottom: 5}}>Seus visitantes ativos: </p>
-            <div style={{display: "flex", flexDirection: "row", gap: 10, flexWrap: "wrap"}}>
-            </div>
-          </div>}
-
+            {usuario?.visitantes?.length > 0 ? (
+              <div style={{display: "flex", flexDirection: "row", gap: 10, flexWrap: "wrap"}}>
+                {usuario.visitantes.map((visitante) => (
+                <AlertDialog key={visitante.id_visitante}>
+                  <AlertDialogTrigger asChild>
+                    <Badge className="cursor-pointer">{visitante.email}</Badge>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Remover visitante?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Tem certeza que deseja remover o visitante <strong>{visitante.email}</strong>? Esta ação não poderá ser desfeita.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => removerVisitante(visitante.id_visitante)}>
+                        Remover
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                ))}
+              </div>
+            ): <small>Nenhum visitante encontrado</small>}
+          </div>
+          }
         </form>
       </div>  
     </Layout>
