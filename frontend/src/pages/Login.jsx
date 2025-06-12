@@ -43,7 +43,7 @@ const Login = () => {
           <label htmlFor="senha">Senha</label>
           <input type="password" id="senha" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
 
-          <button type="submit">Entrar</button>
+          <button type="submit" className='btnSubmit'>Entrar</button>
         </form>
 
         <p className="signup-text">

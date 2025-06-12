@@ -22,6 +22,7 @@ app.get('/usuarios', usuarioController.listarUsuarios);
 app.get('/usuarios/:id', usuarioController.buscarUsuarioPorId);
 app.post('/usuarios', usuarioController.cadastrarUsuario);
 app.put('/usuarios/:id/senha', usuarioController.atualizarSenha);
+app.post('/usuarios/:id/visitantes', usuarioController.adicionarVisitante);
 
 // Rota de Espacos
 app.get('/espacos', espacoController.listarEspacos);

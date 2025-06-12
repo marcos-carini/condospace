@@ -44,9 +44,22 @@ const atualizarSenha = async (req, res) => {
   }
 };
 
+const adicionarVisitante = async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.body;
+
+  try {
+    const result = await usuarioService.adicionarVisitante(id, email);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   listarUsuarios,
   cadastrarUsuario,
   buscarUsuarioPorId,
   atualizarSenha,
+  adicionarVisitante,
 };

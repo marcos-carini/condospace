@@ -1,7 +1,7 @@
 .minhaconta-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding-top: 2rem;
   gap: 2rem;
 }
 
@@ -72,7 +72,7 @@ input:focus {
   color: white;
   border-radius: 0.5rem;
   cursor: pointer;
-  height: 36px;
+  height: 44px;
   font-weight: bold;
   transition: background-color 0.3s;
 }
@@ -80,6 +80,16 @@ input:focus {
 .btn-comum:hover {
   background-color: #5a4db1;
 
+}
+
+.badgeVisitante{
+  width: fit-content;
+  background-color: #ddd;
+  color: #6a5acd;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 0.875rem;
 }
 
 @media (max-width: 600px) {

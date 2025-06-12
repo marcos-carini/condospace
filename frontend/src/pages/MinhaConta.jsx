@@ -3,12 +3,14 @@ import Layout from '../components/Layout'
 import "./MinhaConta.css"
 import Divisoria from '../components/Divisoria'
 import toast from 'react-hot-toast';
+import { Button } from "@/components/ui/button"
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const MinhaConta = () => {
   const [usuario, setUsuario] = useState(null);
+  const [emailVisitante, setEmailVisitante] = useState('');
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const [senhaAnterior, setSenhaAnterior] = useState('');
@@ -47,6 +49,21 @@ const MinhaConta = () => {
       toast.error(error.response?.data?.message || 'Erro ao atualizar senha');
     }
   };
+
+  const handleAdicionarVisitante = async () => {
+  const id = localStorage.getItem('id_usuario');
+
+  try {
+    const response = await axios.post(`http://localhost:3001/usuarios/${id}/visitantes`, {
+      email: emailVisitante
+    });
+
+    toast.success(response.data.message);
+    setEmailVisitante('');
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Erro ao adicionar visitante');
+  }
+};
   
   return (
     <Layout activePage="minhaconta">
@@ -94,6 +111,7 @@ const MinhaConta = () => {
             </div>
 
             <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff", marginTop: 20}}>Moradia</h3>
+            {usuario && (usuario.bloco !== "" || usuario.apartamento !== "") ? 
             <div className="apartamento-info">
               <label>
                 Bloco:
@@ -105,23 +123,31 @@ const MinhaConta = () => {
                 <input type="text" value={usuario?.apartamento} placeholder="Digite o apartamento" readOnly/>
               </label>
              
-            </div>
+            </div> : 
+            <h3 style={{color: "#928bff"}}>Você é visitante de:</h3>
+
+            }
           </div>
 
           
+          {usuario && (usuario.bloco !== "" || usuario.apartamento !== "") &&
           <div className="form-section" style={{gap: 0}}>
             <h3 style={{color: "#928bff"}}>Adicionar Visitante</h3>
             <small style={{color: "#666", marginBottom: 15}}>Adicione um visitante para conseguir realizar reservas também!</small>
             <div className="apartamento-info">
               <label>
                 Email do Visitante:
-                <input type="email" placeholder="usuario@exemplo.com" />
+                <input type="email" placeholder="usuario@exemplo.com" value={emailVisitante} onChange={(e) => setEmailVisitante(e.target.value)} />
               </label>
-              <button type="button" className="btn-comum">
+              <button type="button" className="btn-comum" onClick={handleAdicionarVisitante}>
                 Adicionar
               </button>
             </div>
-          </div>
+
+            <p style={{marginTop: 20, marginBottom: 5}}>Seus visitantes ativos: </p>
+            <div style={{display: "flex", flexDirection: "row", gap: 10, flexWrap: "wrap"}}>
+            </div>
+          </div>}
 
         </form>
       </div>  

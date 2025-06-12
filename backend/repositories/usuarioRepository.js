@@ -77,6 +77,26 @@ const atualizarSenha = (id, novaSenha) => {
   });
 };
 
+const verificarVinculoExistente = (idMorador, idVisitante) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM visitantes WHERE id_morador = ? AND id_visitante = ?';
+    db.query(sql, [idMorador, idVisitante], (err, results) => {
+      if (err) return reject(err);
+      resolve(results.length > 0);
+    });
+  });
+};
+
+const vincularVisitante = (idMorador, idVisitante) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO visitantes (id_morador, id_visitante, status_vinculo) VALUES (?, ?, ?)';
+    db.query(sql, [idMorador, idVisitante, "A"], (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   listarUsuarios,
   buscarPorEmail,
@@ -84,4 +104,6 @@ module.exports = {
   buscarUsuarioPorId,
   buscarTodosDadosPorId,
   atualizarSenha,
+  verificarVinculoExistente,
+  vincularVisitante
 };

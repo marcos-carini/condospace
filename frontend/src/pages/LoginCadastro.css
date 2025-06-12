@@ -32,7 +32,6 @@
   padding: 0.75rem;
   border: none;
   border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -42,7 +41,20 @@
   transform: scale(1.008);
 }
 
-.login-box button {
+.btnVisita {
+  width: 100px;
+  background-color: #ddd;
+  color: #777;
+  padding: 0.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btnSubmit {
   width: 100%;
   background-color: white;
   color: #8c52ff;
@@ -56,9 +68,13 @@
   cursor: pointer;
 }
 
-.login-box button:hover {
+.btnSubmit:hover {
   background-color:rgb(103, 27, 255);
   color: white;
+  transform: scale(1.03);
+}
+
+.btnVisita:hover {
   transform: scale(1.03);
 }
 

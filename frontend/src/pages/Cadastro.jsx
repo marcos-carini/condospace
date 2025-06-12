@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 const Cadastro = () => {
   const navigate = useNavigate();
+  const [souVisitante, setSouVisitante] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     cpf: '',
@@ -41,13 +42,14 @@ const Cadastro = () => {
       return;
     }
 
-    if (!formData.email || !formData.cpf || !formData.senha || !formData.bloco || !formData.apartamento) {
+    if (!formData.email || !formData.cpf || !formData.senha) {
       toast.error("Por favor, preencha todos os campos!");
       return;
     }
 
-    if(true){
-      console.log("Formulário enviado com os seguintes dados:", formData);
+    if (!souVisitante && (!formData.bloco || !formData.apartamento)) {
+      toast.error("Por favor, preencha o bloco e apartamento!");
+      return;
     }
 
     try {
@@ -57,8 +59,8 @@ const Cadastro = () => {
         cpf: formData.cpf.replace(/\D/g, ''),
         senha: formData.senha,
         telefone: formData.telefone,
-        bloco: formData.bloco,
-        apartamento: formData.apartamento
+        bloco: souVisitante ? "" : formData.bloco,
+        apartamento: souVisitante ? "" : formData.apartamento
       });
       alert("Cadastro realizado com sucesso!");
       navigate("/login");
@@ -122,6 +124,7 @@ const Cadastro = () => {
             maxLength={14} 
           />
 
+          {!souVisitante && 
           <div style={{display: 'flex', gap: "2rem"}}>
             <label htmlFor="bloco">
               Bloco
@@ -133,7 +136,17 @@ const Cadastro = () => {
                 Apto
                <input type="text" id="apartamento" placeholder="Digite o Apartamento"  value={formData.apartamento} onChange={handleChange}/> 
             </label>
+          </div>}
+
+
+          
+          <h3 style={{marginTop: 20}}>Você é apenas visita?</h3>
+          <div style={{display: 'flex', gap: "1rem", marginBottom: "1rem", marginTop: 5}}>
+            <button type='button' className='btnVisita' style={{backgroundColor: souVisitante ? "#a3ffa7" : "", color: souVisitante ? "#207d42" : "" }} onClick={() => setSouVisitante(true)}>Sim</button>
+            <button type='button' className='btnVisita' style={{backgroundColor: souVisitante ? "" : "#cf142b", color: souVisitante ? "" : "#fff"}} onClick={() => setSouVisitante(false)}>Não</button>
           </div>
+          
+
 
           <label htmlFor="telefone">Telefone</label>
          <input
@@ -151,7 +164,7 @@ const Cadastro = () => {
           <label htmlFor="confirmar_senha">Confirmar Senha</label>
           <input type="password" id="confirmar_senha" placeholder="Digite sua senha novamente" value={formData.confirmar_senha} onChange={handleChange}/>
 
-          <button type="submit">Cadastrar</button>
+          <button type="submit" className='btnSubmit'>Cadastrar</button>
         </form>
 
         <p className="signup-text">
