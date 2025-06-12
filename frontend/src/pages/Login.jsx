@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginCadastro.css';
 import { useState } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
       localStorage.setItem('token', res.data.token);
       navigate('/');
     } catch (err) {
-      alert('Email ou senha inválidos');
+      toast.error('Email ou senha inválidos');
       setSenha('');
     }
   };

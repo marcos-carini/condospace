@@ -1,7 +1,8 @@
 import './LoginCadastro.css';
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const Cadastro = () => {
   const navigate = useNavigate();
@@ -22,7 +23,12 @@ const Cadastro = () => {
     e.preventDefault();
 
     if (formData.senha !== formData.confirmar_senha) {
-      alert("As senhas não coincidem!");
+      toast.error("As senhas não coincidem!");
+      return;
+    }
+
+    if (!formData.email || !formData.cpf || !formData.senha || !formData.bloco || !formData.apartamento) {
+      toast.error("Por favor, preencha todos os campos!");
       return;
     }
 
@@ -76,6 +82,11 @@ const Cadastro = () => {
 
           <button type="submit">Cadastrar</button>
         </form>
+
+        <p className="signup-text">
+          Já possui uma conta de morador?
+          <Link to={"/login"} className="signup-link"> Faça o login</Link>
+        </p>
 
       
       </div>
