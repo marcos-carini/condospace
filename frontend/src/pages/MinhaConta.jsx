@@ -2,8 +2,52 @@ import React from 'react'
 import Layout from '../components/Layout'
 import "./MinhaConta.css"
 import Divisoria from '../components/Divisoria'
+import toast from 'react-hot-toast';
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const MinhaConta = () => {
+  const [usuario, setUsuario] = useState(null);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+
+  const [senhaAnterior, setSenhaAnterior] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+
+
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      const id = localStorage.getItem('id_usuario');
+
+      try {
+        const response = await axios.get(`http://localhost:3001/usuarios/${id}`); // troque o ID dinamicamente se necessário
+        setUsuario(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
+
+
+  const handleSenhaUpdate = async () => {
+    const id = localStorage.getItem('id_usuario');
+    try {
+      const response = await axios.put(`http://localhost:3001/usuarios/${id}/senha`, {
+        senhaAnterior,
+        novaSenha
+      });
+      toast.success(response.data.message);
+      setIsChangingPassword(false);
+      setSenhaAnterior('');
+      setNovaSenha('');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Erro ao atualizar senha');
+    }
+  };
+  
   return (
     <Layout activePage="minhaconta">
       <Divisoria titulo="Minha Conta"/>
@@ -14,50 +58,60 @@ const MinhaConta = () => {
 
           {/* Seção: Dados do usuário */}
           <div className="form-section">
-            <h2>Seus Dados</h2>
+            <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff"}}>Seus Dados</h3>
 
             <label>
               Email:
-              <input type="email" value="usuario@exemplo.com" readOnly />
+              <input type="email" value={usuario?.email || ""} readOnly />
             </label>
 
             <label>
               Telefone:
-              <input type="text" value="(11) 91234-5678" readOnly />
+              <input type="text" value={usuario?.telefone || ""} readOnly />
             </label>
 
             <div className="senha-area">
+              { isChangingPassword && 
+              <>
               <label>
-                Senha:
-                <input type="password" value="********" readOnly />
+                Senha anterior:
+                <input type="password" value={senhaAnterior} onChange={(e) => setSenhaAnterior(e.target.value)}/>
               </label>
-              <button type="button" className="btn-comum">
-                Mudar Senha
+              <label>
+                Nova Senha:
+                <input type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)}/>
+              </label>
+
+              <button type="button" className="btn-comum" onClick={handleSenhaUpdate}>
+                Confirmar
+              </button>
+
+              </>
+              }
+              <button type="button" className="btn-comum" style={{backgroundColor: isChangingPassword ? "#cf142b" : ""}} onClick={() => setIsChangingPassword(!isChangingPassword)}>
+                {isChangingPassword ? "Cancelar" : "Mudar Senha"}
               </button>
             </div>
-          </div>
 
-          {/* Seção: Informações do Apartamento */}
-          <div className="form-section">
-            <h2>Informações do Apartamento</h2>
+            <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff", marginTop: 20}}>Moradia</h3>
             <div className="apartamento-info">
               <label>
                 Bloco:
-                <input type="text" placeholder="Digite o bloco" />
+                <input type="text" value={usuario?.bloco} placeholder="Digite o bloco" readOnly/>
               </label>
 
               <label>
                 Apartamento:
-                <input type="text" placeholder="Digite o apartamento" />
+                <input type="text" value={usuario?.apartamento} placeholder="Digite o apartamento" readOnly/>
               </label>
-              <button type="button" className="btn-comum">
-                  Confirmar
-              </button>
+             
             </div>
           </div>
+
+          
           <div className="form-section" style={{gap: 0}}>
-            <h2 >Adicionar Visitante</h2>
-            <p style={{color: "#666", marginBottom: 16}}>Adicione um visitante para conseguir realizar reservas também!</p>
+            <h3 style={{color: "#928bff"}}>Adicionar Visitante</h3>
+            <small style={{color: "#666", marginBottom: 15}}>Adicione um visitante para conseguir realizar reservas também!</small>
             <div className="apartamento-info">
               <label>
                 Email do Visitante:

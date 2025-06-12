@@ -19,7 +19,9 @@ app.post('/login', authController.login);
 
 // Rotas de Usuários
 app.get('/usuarios', usuarioController.listarUsuarios);
+app.get('/usuarios/:id', usuarioController.buscarUsuarioPorId);
 app.post('/usuarios', usuarioController.cadastrarUsuario);
+app.put('/usuarios/:id/senha', usuarioController.atualizarSenha);
 
 // Rota de Espacos
 app.get('/espacos', espacoController.listarEspacos);

@@ -10,6 +10,17 @@ const listarUsuarios = () => {
   });
 };
 
+const buscarUsuarioPorId = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT id_usuario, email, telefone, bloco, apartamento FROM usuario WHERE id_usuario = ?';
+    db.query(sql, [id], (err, results) => {
+      if (err) return reject(err);
+      resolve(results[0]);
+    });
+  });
+};
+
+
 const buscarPorEmail = (email) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM usuario WHERE email = ?';
@@ -47,8 +58,30 @@ const cadastrarUsuario = async (usuario) => {
   });
 };
 
+
+const buscarTodosDadosPorId = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT * FROM usuario WHERE id_usuario = ?', [id], (err, results) => {
+      if (err) return reject(err);
+      resolve(results[0]); 
+    });
+  });
+};
+
+const atualizarSenha = (id, novaSenha) => {
+  return new Promise((resolve, reject) => {
+    db.query('UPDATE usuario SET senha = ? WHERE id_usuario = ?', [novaSenha, id], (err, results) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
+};
+
 module.exports = {
   listarUsuarios,
   buscarPorEmail,
-  cadastrarUsuario
+  cadastrarUsuario,
+  buscarUsuarioPorId,
+  buscarTodosDadosPorId,
+  atualizarSenha,
 };

@@ -13,14 +13,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('http://localhost:3001/login', {
         email,
         senha,
       });
 
-      localStorage.setItem('token', res.data.token);
+      const { token, nome, id } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('nome', nome);
+      localStorage.setItem('id_usuario', id);
+      toast.success('Login realizado com sucesso!');
       navigate('/');
     } catch (err) {
+      console.log(err);
       toast.error('Email ou senha inválidos');
       setSenha('');
     }
