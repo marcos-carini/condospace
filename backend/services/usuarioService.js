@@ -10,7 +10,7 @@ const listarUsuarios = async () => {
   }
 };
 
-const cadastrarUsuario = async ({ nome, email, cpf, senha, bloco, apartamento }) => {
+const cadastrarUsuario = async ({ nome, email, cpf, senha, telefone, bloco, apartamento }) => {
   const existente = await usuarioRepository.buscarPorEmail(email);
   if (existente.length > 0) {
     throw new Error('Email já cadastrado');
@@ -21,9 +21,9 @@ const cadastrarUsuario = async ({ nome, email, cpf, senha, bloco, apartamento })
     email,
     cpf,
     senha,
+    telefone,
     bloco,
     apartamento,
-    telefone: '',
     tipo_usuario: 'M',
     status: 'A'
   });

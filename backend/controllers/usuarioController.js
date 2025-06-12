@@ -10,10 +10,9 @@ const listarUsuarios = async (req, res) => {
 };
 
 const cadastrarUsuario = async (req, res) => {
-  const { nome, email, cpf, senha, bloco, apartamento } = req.body;
-
+  const { nome, email, cpf, senha, telefone, bloco, apartamento } = req.body;
   try {
-    await usuarioService.cadastrarUsuario({ nome, email, cpf, senha, bloco, apartamento });
+    await usuarioService.cadastrarUsuario({ nome, email, cpf, senha, telefone, bloco, apartamento });
     res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
   } catch (error) {
     res.status(400).json({ message: error.message });
