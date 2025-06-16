@@ -3,6 +3,8 @@ import './LoginCadastro.css';
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -35,13 +37,12 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-box">
         <h2>Login</h2>
-
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input type="text" id="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <Label>Email</Label>
+          <Input type="text" id="email" placeholder="c@exemplo.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-          <label htmlFor="senha">Senha</label>
-          <input type="password" id="senha" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
+          <Label>Senha</Label>
+          <Input type="password" value={senha} onChange={(e) => setSenha(e.target.value)}/>
 
           <button type="submit" className='btnSubmit'>Entrar</button>
         </form>

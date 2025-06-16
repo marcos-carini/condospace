@@ -28,6 +28,8 @@
 }
 
 .login-box input {
+  background-color: #ffffff;
+  color: #333;
   width: 100%;
   padding: 0.75rem;
   border: none;

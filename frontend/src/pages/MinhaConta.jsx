@@ -1,12 +1,11 @@
-import React from 'react'
 import Layout from '../components/Layout'
 import "./MinhaConta.css"
 import Divisoria from '../components/Divisoria'
 import toast from 'react-hot-toast';
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
-  AlertDialog,
+  AlertDialog,  
   AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
@@ -105,16 +104,17 @@ const removerVisitante = async (idVisitante) => {
           {/* Seção: Dados do usuário */}
           <div className="form-section">
             <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff"}}>Seus Dados</h3>
+            <div className='flex flex-col md:flex-row gap-4 w-full'>
+              <label className="flex-1 flex flex-col">
+                Email:
+                <input type="email" value={usuario?.email || ""} readOnly  />
+              </label>
 
-            <label>
-              Email:
-              <input type="email" value={usuario?.email || ""} readOnly />
-            </label>
-
-            <label>
-              Telefone:
-              <input type="text" value={usuario?.telefone || ""} readOnly />
-            </label>
+              <label className="flex-1 flex flex-col">
+                Telefone:
+                <input type="text" value={usuario?.telefone || ""} readOnly  />
+              </label>
+            </div>
 
             <div className="senha-area">
               { isChangingPassword && 

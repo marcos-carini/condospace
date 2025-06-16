@@ -2,16 +2,38 @@ import "./Reserva.css"
 import Modal from "react-modal";
 import Layout from "../components/Layout"
 import EspacoCard from "../components/EspacoCard"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 Modal.setAppElement("#root");
 
 const Reserva = () => {
+  const [espacos, setEspacos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [modalAberto, setModalAberto] = useState(false);
   const [espacoSelecionado, setEspacoSelecionado] = useState(null);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/espacos")
+      .then((response) => {
+        setEspacos(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar espaços:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  const handleReservar = (espaco) => {
+    alert(`Iniciando reserva do ${espaco}`)
+  }
+
   const abrirModal = (espaco) => {
+    console.log("Abrindo modal para:", espaco);
     setEspacoSelecionado(espaco);
+    console.log("Espaço selecionado:", espacoSelecionado);
     setModalAberto(true);
   };
 
@@ -20,28 +42,24 @@ const Reserva = () => {
     setEspacoSelecionado(null);
   };
 
-   const espacos = [
-    { titulo: "Espaço Gourmet", descricao: "Perfeito para festas e eventos." },
-    { titulo: "Salão de Festas", descricao: "Ideal para grandes comemorações." },
-    { titulo: "Churrasqueira", descricao: "Ambiente ao ar livre para churrascos." },
-  ];
+  
+  if (loading) return <p>Carregando espaços...</p>;
 
   return (
     <>
     <Layout activePage="reservas">
-      <div className="espacos-wrapper">
-        {espacos.map((espaco, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 justify-items-center">
+        {espacos.map((espaco) => (
           <EspacoCard
-            key={i}
-            titulo={espaco.titulo}
+            key={espaco.id_espaco}
+            titulo={espaco.nome}
+            imagem={espaco.imagem}
             descricao={espaco.descricao}
-            onReservar={() =>
-              abrirModal(espaco)
-            }
+            disponivel={espaco.status === "A"}
+            onReservar={() => abrirModal(espaco)}
           />
         ))}
-
-      </div>
+      </div>  
 
 
     </Layout>
@@ -52,17 +70,12 @@ const Reserva = () => {
         overlayClassName="modal-overlay"
       >
         <header className="modal-header">
-          <h2>Reservar: {espacoSelecionado?.titulo}</h2>
+          <h2 style={{marginBottom: 0}}>Reservar: {espacoSelecionado?.nome}</h2>
         </header>
         <form className="modal-form">
           <label>
             Data:
             <input type="date" required className="modal-input" />
-          </label>
-
-          <label>
-            Horário:
-            <input type="time" required className="modal-input" />
           </label>
 
           <div className="modal-contato">
@@ -72,7 +85,7 @@ const Reserva = () => {
           </div>
 
           <p className="modal-termo">
-            Ao reservar o/a {espacoSelecionado?.titulo} você concorda com os termos de uso do condomínio.
+            Ao reservar o/a {espacoSelecionado?.nome} você concorda com os termos de uso do condomínio.
           </p>
 
           <button 
