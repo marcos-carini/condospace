@@ -103,7 +103,6 @@ const removerVisitante = async (idVisitante) => {
 
           {/* Seção: Dados do usuário */}
           <div className="form-section">
-            <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff"}}>Seus Dados</h3>
             <div className='flex flex-col md:flex-row gap-4 w-full'>
               <label className="flex-1 flex flex-col">
                 Email:
@@ -138,8 +137,7 @@ const removerVisitante = async (idVisitante) => {
                 {isChangingPassword ? "Cancelar" : "Mudar Senha"}
               </Button>
             </div>
-
-            <h3 style={{borderBottom: "1px solid #f1f1f1", paddingBottom: 5, color: "#928bff", marginTop: 20}}>Moradia</h3>
+            
             {usuario && (usuario.bloco !== "" || usuario.apartamento !== "") ? 
             <div className="apartamento-info">
               <label>
