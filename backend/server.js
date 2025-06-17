@@ -28,8 +28,12 @@ app.delete('/usuarios/visitantes/:id', usuarioController.removerVisitante);
 // Rota de Espacos
 app.get('/espacos', espacoController.listarEspacos);
 
+
 // Rota de Reservas
 app.get('/reservas', reservaController.listarReservas);
+app.get('/reservas/usuario/:id', reservaController.listarReservasDoUsuario);
+app.post('/reservas', reservaController.adicionarReserva);
+
 
 
 const PORT = process.env.PORT || 3001;

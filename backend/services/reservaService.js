@@ -9,6 +9,16 @@ const listarReservas = async () => {
   }
 }
 
+const listarReservasDoUsuario = async (id_usuario) => {
+  return await reservaRepository.listarReservasDoUsuario(id_usuario);
+};
+
+const adicionarReserva = async (id_usuario, id_espaco, data) => {
+  return await reservaRepository.adicionarReserva(id_usuario, id_espaco, data);
+};
+
 module.exports = {
   listarReservas,
+  adicionarReserva,
+  listarReservasDoUsuario,
 }
