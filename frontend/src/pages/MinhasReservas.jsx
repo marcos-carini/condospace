@@ -3,6 +3,7 @@ import "./Reserva.css"
 import Layout from "../components/Layout"
 import Divisoria from "../components/Divisoria"
 import ReservaCard from "../components/ReservaCard"
+import toast from 'react-hot-toast';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -25,6 +26,21 @@ const MinhasReservas = () => {
       carregarReservas();
     }
   }, [id_usuario]);
+
+
+  const cancelarReserva = async (idReserva) => {
+    try {
+      await axios.put(`http://localhost:3001/reserva/${idReserva}/cancelar`);
+
+      setReservas((prevReservas) =>
+        prevReservas.filter((reserva) => reserva.id_reserva !== idReserva)
+      );
+      toast.success("Reserva cancelada com sucesso");
+    } catch (error) {
+      console.error("Erro ao cancelar reserva:", error);
+      toast.error("Erro ao cancelar reserva");
+    }
+  };
   return (
 
     <Layout activePage={"minhasreservas"}>
@@ -40,6 +56,7 @@ const MinhasReservas = () => {
               descricao={reserva.descricao}
               dataReservada={reserva.data.split("T")[0]}
               status={reserva.status === "A" ? "confirmada" : "pendente"}
+              onCancelar={() => cancelarReserva(reserva.id_reserva)}
             />
           ))
         ) : (

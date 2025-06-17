@@ -33,6 +33,8 @@ app.get('/espacos', espacoController.listarEspacos);
 app.get('/reservas', reservaController.listarReservas);
 app.get('/reservas/usuario/:id', reservaController.listarReservasDoUsuario);
 app.post('/reservas', reservaController.adicionarReserva);
+app.put('/reserva/:id/cancelar', reservaController.cancelarReserva);
+
 
 
 

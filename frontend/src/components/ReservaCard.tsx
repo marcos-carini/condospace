@@ -1,7 +1,7 @@
 import { Button } from "./ui/button.js"
 import { Card, CardContent } from "./ui/card.js"
 import { Badge } from "./ui/badge.js"
-import { Calendar, Clock, AlertTriangle } from "lucide-react"
+import { Calendar, AlertTriangle } from "lucide-react"
 import { useState } from "react"
 import {
   AlertDialog,

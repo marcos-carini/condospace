@@ -10,23 +10,19 @@ const listarReservas = () => {
   });
 };
 
-const listarReservasDoUsuario = (id_usuario) => {
-  const sql = `
-    SELECT 
-      r.*, 
-      e.nome AS nome_espaco, 
-      e.descricao,
-      e.imagem
-    FROM 
-      reserva r
-    JOIN 
-      espaco e ON r.id_espaco = e.id_espaco
-    WHERE 
-      r.id_usuario = ?
-      AND r.status = "A" OR r.status = "P"
-    ORDER BY 
-      r.data DESC
+const listarReservasDoUsuario = (id_usuario, incluirCanceladas = false) => {
+  const sqlBase = `
+    SELECT r.*, e.nome AS nome_espaco, e.descricao , e.imagem
+    FROM reserva r 
+    JOIN espaco e ON r.id_espaco = e.id_espaco 
+    WHERE r.id_usuario = ? 
   `;
+
+  const condicaoStatus = incluirCanceladas 
+    ? "AND (r.status = 'I' OR r.status = 'C')"
+    : "AND (r.status = 'A' OR r.status = 'P')";
+
+  const sql = `${sqlBase} ${condicaoStatus}`;
 
   return new Promise((resolve, reject) => {
     db.query(sql, [id_usuario], (err, resultados) => {
@@ -50,8 +46,29 @@ const adicionarReserva = (id_usuario, id_espaco, data) => {
   });
 };
 
+const cancelarReserva = (id_reserva, status) => {
+  const sql = `
+    UPDATE reserva
+    SET status = ?
+    WHERE id_reserva = ?
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.query(sql, [status, id_reserva], (err, result) => {
+      if (err) {
+        console.error('Erro ao cancelar reserva:', err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
 module.exports = {
   listarReservas,
   adicionarReserva,
   listarReservasDoUsuario,
+  cancelarReserva,
+  
 };

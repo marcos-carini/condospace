@@ -11,8 +11,9 @@ const listarReservas = async (req, res) => {
 
 const listarReservasDoUsuario = async (req, res) => {
   const { id } = req.params;
+  const { historico } = req.query;
   try {
-    const reservas = await reservaService.listarReservasDoUsuario(id);
+    const reservas = await reservaService.listarReservasDoUsuario(id, historico === 'true');
     res.status(200).json(reservas);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -30,9 +31,22 @@ const adicionarReserva = async (req, res) => {
   }
 };
 
+const cancelarReserva = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await reservaService.cancelarReserva(id);
+    res.status(200).json({ message: 'Reserva cancelada com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao cancelar reserva:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 module.exports= {
   listarReservas,
   adicionarReserva,
-  listarReservasDoUsuario
+  listarReservasDoUsuario,
+  cancelarReserva,
 }
