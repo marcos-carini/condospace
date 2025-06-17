@@ -24,7 +24,7 @@ const EspacoCard = ({
   onReservar,
 }: EspacoCardProps) => {
   return (
-    <Card className="w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group">
+    <Card className="pb-6 w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group">
       <div className="relative h-48 overflow-hidden">
         {imagem ? (
           <img
