@@ -55,7 +55,7 @@ const EspacoCard = ({
       </div>
 
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg font-semibold text-gray-900">{titulo}</CardTitle>
+        <CardTitle className="text-lg font-semibold text-gray-900 truncate">{titulo}</CardTitle>
         <CardDescription className="text-sm text-gray-600 line-clamp-2">{descricao}</CardDescription>
       </CardHeader>
 
@@ -72,11 +72,11 @@ const EspacoCard = ({
           )}
 
           {/* Próxima disponibilidade quando ocupado */}
-          {!disponivel && proximaDisponibilidade && (
+          {!disponivel && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Clock className="w-4 h-4 text-orange-500" />
+              <Clock className="w-4 h-4 text-red-500" />
               <span>
-                Disponível: <strong>{proximaDisponibilidade}</strong>
+                Indiponivel: <strong>Tente novamente outro dia</strong>
               </span>
             </div>
           )}

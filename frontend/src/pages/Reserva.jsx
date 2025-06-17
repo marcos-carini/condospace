@@ -2,33 +2,60 @@ import "./Reserva.css"
 import Modal from "react-modal";
 import Layout from "../components/Layout"
 import EspacoCard from "../components/EspacoCard"
+import DateSelector from "../components/DateSelector";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+import hojeLocal from "../helpers/data";
 
 Modal.setAppElement("#root");
 
 const Reserva = () => {
   const [espacos, setEspacos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [reservas, setReservas] = useState([]);
   const [modalAberto, setModalAberto] = useState(false);
   const [espacoSelecionado, setEspacoSelecionado] = useState(null);
+  const [dataSelecionada, setDataSelecionada] = useState("");
+
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/espacos")
-      .then((response) => {
-        setEspacos(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar espaços:", error);
-        setLoading(false);
-      });
+    carregarDados();
   }, []);
 
-  const handleReservar = (espaco) => {
-    alert(`Iniciando reserva do ${espaco}`)
-  }
+  const carregarDados = async () => {
+    try {
+      const [espacosResp, reservasResp] = await Promise.all([
+        axios.get("http://localhost:3001/espacos"),
+        axios.get("http://localhost:3001/reservas")
+      ]);
+
+      const espacos = espacosResp.data;
+      const reservas = reservasResp.data;
+
+      const hoje = hojeLocal(); 
+      console.log("Data de hoje:", hoje);
+      console.log(reservas);
+      const espacosAtualizados = espacos.map((espaco) => {
+        const temReservaHoje = reservas.some(
+          (reserva) =>
+            reserva.id_espaco === espaco.id_espaco &&
+            reserva.data.split('T')[0] === hoje &&
+            reserva.status === "A"
+        );
+
+        return {
+          ...espaco,
+          disponivel: !temReservaHoje,
+        };
+      });
+
+      setEspacos(espacosAtualizados);
+      setReservas(reservas);
+    } catch (err) {
+      console.error("Erro ao carregar espaços ou reservas:", err);
+    }
+  };
+
 
   const abrirModal = (espaco) => {
     console.log("Abrindo modal para:", espaco);
@@ -42,8 +69,33 @@ const Reserva = () => {
     setEspacoSelecionado(null);
   };
 
-  
-  if (loading) return <p>Carregando espaços...</p>;
+  const concluirReserva = async (espacoId, dataSelecionada) => {
+    const id_usuario = localStorage.getItem('id_usuario');
+    console.log("data selecionada: ",dataSelecionada);
+
+    if (!dataSelecionada) {
+      toast.error("Por favor, selecione uma data para a reserva.");
+      return;
+    }
+
+    try {
+      await axios.post('http://localhost:3001/reservas', {
+        id_usuario,
+        id_espaco: espacoId,
+        data: dataSelecionada,
+      });
+
+      toast.success("Reserva feita com sucesso!");
+      fecharModal();
+      setDataSelecionada("");
+
+      await carregarDados();
+    } catch (error) {
+      console.error("Erro ao criar reserva:", error);
+      toast.error("Erro ao criar reserva.");
+    }
+  };
+
 
   return (
     <>
@@ -55,7 +107,7 @@ const Reserva = () => {
             titulo={espaco.nome}
             imagem={espaco.imagem}
             descricao={espaco.descricao}
-            disponivel={espaco.status === "A"}
+            disponivel={espaco.disponivel}
             onReservar={() => abrirModal(espaco)}
           />
         ))}
@@ -75,7 +127,12 @@ const Reserva = () => {
         <form className="modal-form">
           <label>
             Data:
-            <input type="date" required className="modal-input" />
+            <DateSelector
+              value={dataSelecionada}
+              onChange={setDataSelecionada}
+              reservas={reservas}
+              espacoId={espacoSelecionado?.id_espaco}
+            />
           </label>
 
           <div className="modal-contato">
@@ -92,8 +149,7 @@ const Reserva = () => {
             type="button" 
             className="btn-modal-fechar"
             onClick={() => {
-              // Aqui você chama sua função que controla a reserva
-              fecharModal();
+              concluirReserva(espacoSelecionado.id_espaco, dataSelecionada);
             }}
           >
             Concluir Reserva
