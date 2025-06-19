@@ -6,8 +6,14 @@
   flex-direction: column;
   min-width: 270px;
 }
+/* Container global */
+.container-global {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-.container {
+.container-global {
   width: 100%;
 }
 
@@ -16,7 +22,6 @@
   background-color: #8c52ff;
   padding: 1rem 0;
   color: white;
-  margin-bottom: 2rem;
   min-width:270px;
 }
 

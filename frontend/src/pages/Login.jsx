@@ -24,8 +24,19 @@ const Login = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('nome', nome);
       localStorage.setItem('id_usuario', id);
+
+
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const tipo = payload.tipo;
+
+
+      if (tipo === "A" || tipo === "F") {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
+
       toast.success('Login realizado com sucesso!');
-      navigate('/');
     } catch (err) {
       console.log(err);
       toast.error('Email ou senha inválidos');

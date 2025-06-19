@@ -31,7 +31,7 @@ const Layout = ({ children, activePage }) => {
   return (
     <div className="layout">
       <header className="layout-header">
-        <div className="header-content container">
+        <div className="header-content container-global">
           <Link to={"/"} className="logo-text">CondoSpace</Link>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
             <FaBars />
@@ -51,7 +51,7 @@ const Layout = ({ children, activePage }) => {
         </div>
       </header>
 
-      <div className="layout-body container">
+      <div className="layout-body container-global">
         <aside className="layout-sidebar">
           <h3>Área de Controle</h3>
           <p className="user-info">Bloco 7 · Apto 703</p>

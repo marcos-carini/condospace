@@ -9,6 +9,7 @@ import Contato from './pages/Contato'
 import MinhasReservas from './pages/MinhasReservas'
 import Historico from './pages/Historico'
 import MinhaConta from './pages/MinhaConta'
+import Dashboard from './pages/Dashboard.jsx';
 
 function App() {
 
@@ -44,6 +45,11 @@ function App() {
       <Route path="/minhaconta" element={
         <RequireAuth>
           <MinhaConta />
+        </RequireAuth>
+      } />
+      <Route path="/dashboard" element={
+        <RequireAuth allowedRoles={["A", "F"]}>
+          <Dashboard />
         </RequireAuth>
       } />
     </Routes>
