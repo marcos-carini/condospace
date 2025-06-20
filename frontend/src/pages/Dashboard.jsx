@@ -1,14 +1,18 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BarChart3, Users, Home, Building } from "lucide-react"
+import { BarChart3, Users, Home, Building, LogOut } from "lucide-react"
 
 import { useState } from "react"
 import { DashboardTab } from "../components/tabs/DashboardTab"
 import { EspacosTab } from "../components/tabs/EspacosTab"
 import { MoradoresTab } from "../components/tabs/MoradoresTab"
+import { Button } from "../components/ui/button"
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard")
+
+  const navigate = useNavigate();
 
   const getPageTitle = () => {
     switch (activeTab) {
@@ -35,6 +39,12 @@ const Dashboard = () => {
         return "Visão geral das reservas e estatísticas"
     }
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    navigate("/login"); 
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
@@ -43,6 +53,10 @@ const Dashboard = () => {
             <Building className="h-6 w-6 text-purple-600" />
             <h1 className="text-xl font-bold text-gray-900 mb-0">CondoSpace Admin</h1>
           </div>
+          <Button variant="outline" size="sm" className="hidden sm:inline-flex" onClick={handleLogout}>
+            <span className="hidden sm:inline">Sair</span>
+            <LogOut className="h-4 w-4 ml-2" />
+          </Button>
         </div>
       </header>
 
