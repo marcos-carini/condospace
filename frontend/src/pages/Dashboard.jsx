@@ -4,6 +4,8 @@ import { BarChart3, Users, Home, Building } from "lucide-react"
 
 import { useState } from "react"
 import { DashboardTab } from "../components/tabs/DashboardTab"
+import { EspacosTab } from "../components/tabs/EspacosTab"
+import { MoradoresTab } from "../components/tabs/MoradoresTab"
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -73,11 +75,11 @@ const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="espacos">
-            
+            <EspacosTab/>
           </TabsContent>
 
           <TabsContent value="moradores">
-            
+            <MoradoresTab/>
           </TabsContent>
         </Tabs>
       </main>

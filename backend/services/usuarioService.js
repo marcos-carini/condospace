@@ -10,6 +10,15 @@ const listarUsuarios = async () => {
   }
 };
 
+const listarMoradores = async () => {
+  try {
+    const usuarios = await usuarioRepository.listarMoradores();
+    return usuarios;
+  } catch (error) {
+    throw new Error('Erro ao listar moradores: ' + error.message);
+  }
+};
+
 const buscarUsuarioPorId = async (id) => {
   return await usuarioRepository.buscarUsuarioPorId(id);
 };
@@ -77,6 +86,7 @@ const removerVisitante = async (idVisitante, idMorador) => {
 
 module.exports = {
   listarUsuarios,
+  listarMoradores,
   cadastrarUsuario,
   buscarUsuarioPorId,
   atualizarSenha,

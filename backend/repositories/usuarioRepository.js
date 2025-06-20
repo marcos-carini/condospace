@@ -10,6 +10,44 @@ const listarUsuarios = () => {
   });
 };
 
+const listarMoradores = () => {
+  return new Promise((resolve, reject) => {
+    const sql = `
+      SELECT 
+        u.id_usuario,
+        u.nome,
+        u.email,
+        u.telefone,
+        u.cpf,
+        u.bloco,
+        u.apartamento,
+        u.tipo_usuario,
+        u.status,
+        COUNT(r.id_reserva) AS total_reservas
+      FROM usuario u
+      LEFT JOIN reserva r 
+        ON u.id_usuario = r.id_usuario AND r.status != 'C'
+      WHERE u.tipo_usuario NOT IN ('A', 'F')
+      GROUP BY 
+        u.id_usuario,
+        u.nome,
+        u.email,
+        u.telefone,
+        u.cpf,
+        u.bloco,
+        u.apartamento,
+        u.tipo_usuario,
+        u.status
+      ORDER BY u.nome;
+    `;
+
+    db.query(sql, (err, results) => {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+};
+
 const buscarUsuarioPorId = (id) => {
   return new Promise((resolve, reject) => {
     const sqlUsuario = 'SELECT id_usuario, email, telefone, bloco, apartamento FROM usuario WHERE id_usuario = ?';
@@ -128,6 +166,7 @@ const removerVisitante = (idVisitante, idMorador) => {
 
 module.exports = {
   listarUsuarios,
+  listarMoradores,
   buscarPorEmail,
   cadastrarUsuario,
   buscarUsuarioPorId,

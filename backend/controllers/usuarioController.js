@@ -9,6 +9,15 @@ const listarUsuarios = async (req, res) => {
   }
 };
 
+const listarMoradores = async (req, res) => {
+  try {
+    const usuarios = await usuarioService.listarMoradores();
+    res.status(200).json(usuarios); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const buscarUsuarioPorId = async (req, res) => {
   const { id } = req.params;
   try {
@@ -70,6 +79,7 @@ const removerVisitante = async (req, res) => {
 
 module.exports = {
   listarUsuarios,
+  listarMoradores,
   cadastrarUsuario,
   buscarUsuarioPorId,
   atualizarSenha,

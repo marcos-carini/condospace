@@ -8,6 +8,7 @@ const Cadastro = () => {
   const navigate = useNavigate();
   const [souVisitante, setSouVisitante] = useState(false);
   const [formData, setFormData] = useState({
+    nome: '',
     email: '',
     cpf: '',
     senha: '',
@@ -42,7 +43,7 @@ const Cadastro = () => {
       return;
     }
 
-    if (!formData.email || !formData.cpf || !formData.senha) {
+    if (!formData.nome || !formData.email || !formData.cpf || !formData.senha) {
       toast.error("Por favor, preencha todos os campos!");
       return;
     }
@@ -54,7 +55,7 @@ const Cadastro = () => {
 
     try {
       await axios.post("http://localhost:3001/usuarios", {
-        nome: "Usuário",
+        nome: formData.nome,
         email: formData.email,
         cpf: formData.cpf.replace(/\D/g, ''),
         senha: formData.senha,
@@ -111,6 +112,9 @@ const Cadastro = () => {
         <h2>Cadastre-se</h2>
 
         <form onSubmit={handleSubmit}>
+          <label htmlFor="nome">Nome</label>
+          <input type="text" id="nome" placeholder="Digite seu nome" value={formData.nome} onChange={handleChange} />
+
           <label htmlFor="email">Email</label>
           <input type="text" id="email" placeholder="Digite seu email" value={formData.email} onChange={handleChange} />
 

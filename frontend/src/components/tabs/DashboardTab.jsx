@@ -27,7 +27,6 @@ export const DashboardTab = () => {
       apto: "102",
       espaco: "Espaço Gourmet",
       data: "10/09/2024",
-      horario: "14:00 - 22:00",
       status: "confirmada",
     },
     {
@@ -36,7 +35,6 @@ export const DashboardTab = () => {
       apto: "304",
       espaco: "Salão de Festas",
       data: "15/09/2024",
-      horario: "18:00 - 23:00",
       status: "pendente",
     },
     {
@@ -45,7 +43,6 @@ export const DashboardTab = () => {
       apto: "201",
       espaco: "Área da Piscina",
       data: "18/09/2024",
-      horario: "10:00 - 16:00",
       status: "confirmada",
     },
     {
@@ -54,7 +51,6 @@ export const DashboardTab = () => {
       apto: "502",
       espaco: "Quadra Poliesportiva",
       data: "20/09/2024",
-      horario: "09:00 - 12:00",
       status: "confirmada",
     },
     {
@@ -63,7 +59,6 @@ export const DashboardTab = () => {
       apto: "103",
       espaco: "Espaço Gourmet",
       data: "25/09/2024",
-      horario: "19:00 - 23:00",
       status: "pendente",
     },
   ]
@@ -179,7 +174,6 @@ export const DashboardTab = () => {
                     <TableCell>
                       <div>
                         <div>{reserva.data}</div>
-                        <div className="text-xs text-gray-500">{reserva.horario}</div>
                       </div>
                     </TableCell>
                     <TableCell>
@@ -204,8 +198,8 @@ export const DashboardTab = () => {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
                           {reserva.status === "pendente" && <DropdownMenuItem>Confirmar reserva</DropdownMenuItem>}
+                          {reserva.status === "confirmada" && <DropdownMenuItem>Atribuir como Pendencia</DropdownMenuItem>}
                           <DropdownMenuItem onClick={() => setOpenCancelReserva(true)}>
                             Cancelar reserva
                           </DropdownMenuItem>
@@ -268,7 +262,6 @@ export const DashboardTab = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-gray-500">Horário:</span>
-                <span className="text-sm font-medium">14:00 - 22:00</span>
               </div>
             </div>
             <div className="mt-4">
