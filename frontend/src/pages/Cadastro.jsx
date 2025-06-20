@@ -63,10 +63,10 @@ const Cadastro = () => {
         bloco: souVisitante ? "" : formData.bloco,
         apartamento: souVisitante ? "" : formData.apartamento
       });
-      alert("Cadastro realizado com sucesso!");
+      toast.success("Cadastro realizado com sucesso!");
       navigate("/login");
     } catch (error) {
-      alert("Erro ao cadastrar: " + error.response.data.message);
+      toast.error("Erro ao cadastrar: " + error.response.data.message);
     }
   };
 
